@@ -13,3 +13,4 @@
 # COMPONENTS
 * [Component Development](https://docs.joomla.org/Category:Component_Development)
 * [Developing a Basic Component](https://docs.joomla.org/J3.x:Developing_an_MVC_Component/Developing_a_Basic_Component)
+
