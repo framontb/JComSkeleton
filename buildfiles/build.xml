@@ -1,0 +1,52 @@
+<?xml version="1.0"  encoding="UTF-8" ?>
+
+<project name="testsite" basedir="." default="hello_world" description="a demo project">
+    <property file="./buildfiles/build.properties" />
+
+    <!-- ============================================  -->
+    <!-- (DEFAULT) Target: main                        -->
+    <!-- ============================================  -->
+    <target name="hello_world" description="main target">
+        <echo msg="${message}"/>
+    </target>
+
+    <!-- ============================================  -->
+    <!-- Target: another_hello               -->
+    <!-- ============================================  -->
+    <target name="another_hello" description="another hello">
+        <echo msg="${message.alternative}"/>
+    </target>
+
+    <!-- ============================================  -->
+    <!-- Define filesets                               -->
+    <!-- ============================================  -->
+
+    <fileset id="templates.01_Introduction" dir="${folder.templates}">
+        <include name="01_Introduction/**"/>
+    </fileset>
+
+    <!-- ============================================  -->
+    <!-- Define Build for 01_Introduction              -->
+    <!-- ============================================  -->
+    <target name="build.01_Introduction">
+
+        <echo msg="Copying to skeletons folder..."/>
+        <copy todir="${folder.skeletons}">
+            <fileset refid="templates.01_Introduction"/>
+        </copy>
+
+        <!-- Rename 01_Introduction to component.name   -->
+        <echo msg="Rename 01_Introduction to ${component.name}..."/>
+        <move   file="${folder.skeletons}/01_Introduction"
+                tofile="${folder.skeletons}/${component.name}"
+                includeemptydirs="true" />
+    </target>
+
+    <!-- ============================================  -->
+    <!-- Clean skeletons folder            -->
+    <!-- ============================================  -->
+    <target name="clean.skeletons">
+        <!-- @TODO            -->
+    </target>
+
+</project>

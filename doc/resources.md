@@ -14,3 +14,9 @@
 * [Component Development](https://docs.joomla.org/Category:Component_Development)
 * [Developing a Basic Component](https://docs.joomla.org/J3.x:Developing_an_MVC_Component/Developing_a_Basic_Component)
 
+# PHING
+* [Using Phing, the PHP Build Tool](https://www.sitepoint.com/using-phing/)
+
+* [Phing User Guide](https://www.phing.info/guide/chunkhtml/)
+    * [PHING - Command Line Arguments](https://www.phing.info/guide/chunkhtml/sec.commandlineargs.html)
+
