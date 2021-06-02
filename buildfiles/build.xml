@@ -43,10 +43,15 @@
     </target>
 
     <!-- ============================================  -->
-    <!-- Clean skeletons folder            -->
+    <!-- Delete skeletons folder            -->
     <!-- ============================================  -->
-    <target name="clean.skeletons">
-        <!-- @TODO            -->
+    <target name="delete.skeletons">
+        <!-- Delete skeletons -->
+        <delete dir="${folder.skeletons}" includeemptydirs="true" verbose="true">
+        </delete>
+
+        <!-- Create skeleton -->
+        <mkdir dir="${folder.skeletons}" />
     </target>
 
 </project>

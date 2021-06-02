@@ -23,3 +23,7 @@ You can even roll out changes to your test environment as you develop.
 Set the property **component.name** to give the name to the new component:
 
 `php ./vendor/phing/phing/bin/phing -f ./buildfiles/build.xml build.01_Introduction -Dcomponent.name=JumerCom`
+
+### EXAMPLE > Delete Skeleton Folder
+
+`php ./vendor/phing/phing/bin/phing -f ./buildfiles/build.xml delete.skeletons`
