@@ -19,4 +19,5 @@
 
 * [Phing User Guide](https://www.phing.info/guide/chunkhtml/)
     * [PHING - Command Line Arguments](https://www.phing.info/guide/chunkhtml/sec.commandlineargs.html)
+    * [PHING - ReplaceRegexp](https://www.phing.info/guide/chunkhtml/ReplaceRegexp.html)
 

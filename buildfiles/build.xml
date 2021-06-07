@@ -1,38 +1,45 @@
 <?xml version="1.0"  encoding="UTF-8" ?>
 
-<project name="testsite" basedir="." default="hello_world" description="a demo project">
+<project name="testsite" basedir="." default="build.01_Introduction" 
+    description="Creates a Joomla Component skeleton based on a given template">
+
     <property file="./buildfiles/build.properties" />
+    <tstamp/>
 
-    <!-- ============================================  -->
-    <!-- (DEFAULT) Target: main                        -->
-    <!-- ============================================  -->
-    <target name="hello_world" description="main target">
-        <echo msg="${message}"/>
-    </target>
-
-    <!-- ============================================  -->
-    <!-- Target: another_hello               -->
-    <!-- ============================================  -->
-    <target name="another_hello" description="another hello">
-        <echo msg="${message.alternative}"/>
-    </target>
-
-    <!-- ============================================  -->
-    <!-- Define filesets                               -->
-    <!-- ============================================  -->
+    <!-- ==============================================  -->
+    <!-- Define filesets for templates.01_Introduction   -->
+    <!-- ==============================================  -->
 
     <fileset id="templates.01_Introduction" dir="${folder.templates}">
         <include name="01_Introduction/**"/>
     </fileset>
+
+    <exec command="echo ${component.name} | awk '{print tolower($0)}'" outputProperty="component.name.lower" />
 
     <!-- ============================================  -->
     <!-- Define Build for 01_Introduction              -->
     <!-- ============================================  -->
     <target name="build.01_Introduction">
 
-        <echo msg="Copying to skeletons folder..."/>
+        <echo msg="Creating Skeleton..."/>
+
+        <!-- MANIFESTO Replacements -->
         <copy todir="${folder.skeletons}">
             <fileset refid="templates.01_Introduction"/>
+            <filterchain>
+                <replaceregexp>
+                    <regexp pattern="${manifesto.pattern.name}"         replace="\1${manifesto.replace.name}\3"/>
+                    <regexp pattern="${manifesto.pattern.creationDate}" replace="\1${manifesto.replace.creationDate}\3"/>
+                    <regexp pattern="${manifesto.pattern.author}"       replace="\1${manifesto.replace.author}\3"/>
+                    <regexp pattern="${manifesto.pattern.authorEmail}"  replace="\1${manifesto.replace.authorEmail}\3"/>
+                    <regexp pattern="${manifesto.pattern.authorUrl}"    replace="\1${manifesto.replace.authorUrl}\3"/>
+                    <regexp pattern="${manifesto.pattern.copyright}"    replace="\1${manifesto.replace.copyright}\3"/>
+                    <regexp pattern="${manifesto.pattern.license}"      replace="\1${manifesto.replace.license}\3"/>
+                    <regexp pattern="${manifesto.pattern.description}"  replace="\1${manifesto.replace.description}\3"/>
+                    <regexp pattern="${manifesto.pattern.filename.helloworld}"  replace="\1${component.name.lower}\3"/>
+                    <regexp pattern="${manifesto.pattern.option.helloworld}"    replace="\1${component.name.lower}"/>
+                </replaceregexp>
+            </filterchain>
         </copy>
 
         <!-- Rename 01_Introduction to component.name   -->
@@ -40,6 +47,9 @@
         <move   file="${folder.skeletons}/01_Introduction"
                 tofile="${folder.skeletons}/${component.name}"
                 includeemptydirs="true" />
+
+
+
     </target>
 
     <!-- ============================================  -->
@@ -52,6 +62,15 @@
 
         <!-- Create skeleton -->
         <mkdir dir="${folder.skeletons}" />
+    </target>
+
+
+    <!-- ============================================  -->
+    <!-- LAB ZONE                                      -->
+    <!-- ============================================  -->
+    <target name="lab.zone">
+        <exec command="echo ${component.name} | awk '{print tolower($0)}'" outputProperty="component.name.lower" />
+        <echo msg="${component.name.lower}"/>
     </target>
 
 </project>
