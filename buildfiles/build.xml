@@ -1,6 +1,6 @@
 <?xml version="1.0"  encoding="UTF-8" ?>
 
-<project name="testsite" basedir="." default="build.01_Introduction" 
+<project name="testsite" basedir="." default="build.from.template" 
     description="Creates a Joomla Component skeleton based on a given template">
 
     <!-- ==============================================  -->
@@ -27,7 +27,7 @@
     <!-- ============================================  -->
     <!-- Define Skeleton for template           -->
     <!-- ============================================  -->
-    <target name="build.helloworld">
+    <target name="build.from.template">
 
         <echo msg="Creating Skeleton..."/>
 
@@ -46,6 +46,7 @@
                     <regexp pattern="${manifesto.pattern.description}"  replace="\1${manifesto.replace.description}\3"/>
                     <regexp pattern="${manifesto.pattern.filename.helloworld}"  replace="\1${component.name.lower}\3"/>
                     <regexp pattern="${manifesto.pattern.option.helloworld}"    replace="\1${component.name.lower}"/>
+                    <regexp pattern="${manifesto.pattern.message.menu}"    replace="\1${manifesto.replace.message.menu}\3"/>
                 </replaceregexp>
             </filterchain>
         </copy>
@@ -97,6 +98,13 @@
 
         <!-- Create skeleton -->
         <mkdir dir="${folder.skeletons}" />
+    </target>
+
+    <!-- ============================================  -->
+    <!-- ZIP COMPONENT                                 -->
+    <!-- ============================================  -->
+    <target name="build.zip">
+        <zip destfile="${folder.skeletons}/${component.name}.zip" basedir="${folder.skeletons}/${component.name}"/>
     </target>
 
 
