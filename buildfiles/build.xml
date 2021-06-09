@@ -1,6 +1,6 @@
 <?xml version="1.0"  encoding="UTF-8" ?>
 
-<project name="testsite" basedir="." default="build.from.template" 
+<project name="testsite" basedir="." default="build" 
     description="Creates a Joomla Component skeleton based on a given template">
 
     <!-- ==============================================  -->
@@ -8,6 +8,7 @@
     <!-- ==============================================  -->
 
     <!-- Properties file and timestamp -->
+    <property file="./buildfiles/user.properties" />
     <property file="./buildfiles/build.properties" />
     <tstamp><format pattern="%Y" property="YEAR"></format></tstamp>
 
@@ -25,9 +26,9 @@
     <mkdir dir="${folder.skeletons}" />
 
     <!-- ============================================  -->
-    <!-- Define Skeleton for template           -->
+    <!-- CREATE Skeleton for template           -->
     <!-- ============================================  -->
-    <target name="build.from.template">
+    <target name="create.from.template">
 
         <echo msg="Creating Skeleton..."/>
 
@@ -44,9 +45,9 @@
                     <regexp pattern="${manifesto.pattern.copyright}"    replace="\1${manifesto.replace.copyright}\3"/>
                     <regexp pattern="${manifesto.pattern.license}"      replace="\1${manifesto.replace.license}\3"/>
                     <regexp pattern="${manifesto.pattern.description}"  replace="\1${manifesto.replace.description}\3"/>
-                    <regexp pattern="${manifesto.pattern.filename.helloworld}"  replace="\1${component.name.lower}\3"/>
-                    <regexp pattern="${manifesto.pattern.option.helloworld}"    replace="\1${component.name.lower}"/>
-                    <regexp pattern="${manifesto.pattern.message.menu}"    replace="\1${manifesto.replace.message.menu}\3"/>
+                    <regexp pattern="${manifesto.pattern.filename}"     replace="\1${component.name.lower}\3"/>
+                    <regexp pattern="${manifesto.pattern.option}"       replace="\1${component.name.lower}\3"/>
+                    <regexp pattern="${manifesto.pattern.message.menu}" replace="\1${manifesto.replace.message.menu}\3"/>
                 </replaceregexp>
             </filterchain>
         </copy>
@@ -56,8 +57,8 @@
             <fileset refid="templates.template"/>
             <filterchain>
                 <replaceregexp>
-                    <regexp pattern="${template.patter.message.site}"  replace="${template.replace.message.site}"/>
-                    <regexp pattern="${template.patter.message.admin}" replace="${template.replace.message.admin}"/>
+                    <regexp pattern="${template.pattern.message.site}"  replace="${template.replace.message.site}"/>
+                    <regexp pattern="${template.pattern.message.admin}" replace="${template.replace.message.admin}"/>
                 </replaceregexp>
             </filterchain>
         </copy>
@@ -89,7 +90,7 @@
     </target>
 
     <!-- ============================================  -->
-    <!-- Delete skeletons folder            -->
+    <!-- DELETE skeletons folder                       -->
     <!-- ============================================  -->
     <target name="delete.skeletons">
         <!-- Delete skeletons -->
@@ -103,10 +104,34 @@
     <!-- ============================================  -->
     <!-- ZIP COMPONENT                                 -->
     <!-- ============================================  -->
-    <target name="build.zip">
+    <target name="zip">
         <zip destfile="${folder.skeletons}/${component.name}.zip" basedir="${folder.skeletons}/${component.name}"/>
     </target>
 
+
+    <!-- ============================================  -->
+    <!-- BUILD                                         -->
+    <!-- ============================================  -->
+    <target name="build">
+        <echo msg="Building ${component.name} in ${production.folder}..."/>
+
+        <!-- PERMISSIONS -->
+        <exec command="sudo chmod g+w ~/Documentos/dev/joomla/labs_democracia_online/joomla-lab1/ -R"/>
+
+        <!-- COPY TO ADMIN -->
+        <copy todir="${production.folder.admin}/com_${component.name.lower}" overwrite="true" verbose="true">
+            <fileset dir="${development.folder.admin}">
+                <include name="**"/>
+            </fileset>
+        </copy>
+
+        <!-- COPY TO SITE -->
+        <copy todir="${production.folder.site}/com_${component.name.lower}" overwrite="true" verbose="true">
+            <fileset dir="${development.folder.site}">
+                <include name="**"/>
+            </fileset>
+        </copy>
+    </target>
 
     <!-- ============================================  -->
     <!-- LAB ZONE                                      -->

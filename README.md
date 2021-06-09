@@ -19,14 +19,20 @@ You can even roll out changes to your test environment as you develop.
 
 `php ./vendor/phing/phing/bin/phing -f ./buildfiles/build.xml build.01_Introduction`
 
-### EXAMPLE > Create a component skeleton with name JumerCom
-Set the property **component.name** to give the name to the new component:
-
-`php ./vendor/phing/phing/bin/phing -f ./buildfiles/build.xml build.from.template -Dtemplate=helloworld -Dcomponent.name=JumerCom2`
-
 ### EXAMPLE > Delete Skeleton Folder
 
 `php ./vendor/phing/phing/bin/phing -f ./buildfiles/build.xml delete.skeletons`
 
+### EXAMPLE > Create a component skeleton with name JumerCom
+Set the property **component.name** to give the name to the new component:
+
+`php ./vendor/phing/phing/bin/phing -f ./buildfiles/build.xml create.from.template -Dtemplate=helloworld -Dcomponent.name=JumerCom1`
+
 ### EXAMPLE > Zip Skeleton Folder
-`php ./vendor/phing/phing/bin/phing -f ./buildfiles/build.xml build.zip -Dcomponent.name=JumerCom1`
+`php ./vendor/phing/phing/bin/phing -f ./buildfiles/build.xml zip -Dcomponent.name=JumerCom1`
+Install
+sudo chmod g+w ~/Documentos/dev/joomla/labs_democracia_online/joomla-lab1/ -R
+
+### EXAMPLE > BUILD
+Change some files & build
+`php ./vendor/phing/phing/bin/phing -f ./buildfiles/build.xml build -Dcomponent.name=JumerCom1`
