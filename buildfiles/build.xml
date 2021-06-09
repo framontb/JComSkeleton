@@ -1,52 +1,119 @@
 <?xml version="1.0"  encoding="UTF-8" ?>
 
-<project name="testsite" basedir="." default="hello_world" description="a demo project">
+<project name="testsite" basedir="." default="build.from.template" 
+    description="Creates a Joomla Component skeleton based on a given template">
+
+    <!-- ==============================================  -->
+    <!-- Define some common properties and filesets      -->
+    <!-- ==============================================  -->
+
+    <!-- Properties file and timestamp -->
     <property file="./buildfiles/build.properties" />
+    <tstamp><format pattern="%Y" property="YEAR"></format></tstamp>
 
-    <!-- ============================================  -->
-    <!-- (DEFAULT) Target: main                        -->
-    <!-- ============================================  -->
-    <target name="hello_world" description="main target">
-        <echo msg="${message}"/>
-    </target>
-
-    <!-- ============================================  -->
-    <!-- Target: another_hello               -->
-    <!-- ============================================  -->
-    <target name="another_hello" description="another hello">
-        <echo msg="${message.alternative}"/>
-    </target>
-
-    <!-- ============================================  -->
-    <!-- Define filesets                               -->
-    <!-- ============================================  -->
-
-    <fileset id="templates.01_Introduction" dir="${folder.templates}">
-        <include name="01_Introduction/**"/>
+    <!-- Fileset: template -->
+    <fileset id="templates.template" dir="${folder.templates}">
+        <include name="${template}/**"/>
+        <exclude name="${template}/*.zip"/>
+        <exclude name="${template}/${file.manifesto}"/>
     </fileset>
 
-    <!-- ============================================  -->
-    <!-- Define Build for 01_Introduction              -->
-    <!-- ============================================  -->
-    <target name="build.01_Introduction">
+    <!-- component.name as lower case-->
+    <exec command="echo ${component.name} | awk '{print tolower($0)}'" outputProperty="component.name.lower" />
 
-        <echo msg="Copying to skeletons folder..."/>
-        <copy todir="${folder.skeletons}">
-            <fileset refid="templates.01_Introduction"/>
+    <!-- Create skeleton folder if not exist-->
+    <mkdir dir="${folder.skeletons}" />
+
+    <!-- ============================================  -->
+    <!-- Define Skeleton for template           -->
+    <!-- ============================================  -->
+    <target name="build.from.template">
+
+        <echo msg="Creating Skeleton..."/>
+
+        <!-- MANIFESTO Replacements -->
+        <copy todir="${folder.skeletons}/${template}">
+            <filelist dir="${folder.templates}/${template}/" files="${template.file.manifesto}"/>
+            <filterchain>
+                <replaceregexp>
+                    <regexp pattern="${manifesto.pattern.name}"         replace="\1${manifesto.replace.name}\3"/>
+                    <regexp pattern="${manifesto.pattern.creationDate}" replace="\1${manifesto.replace.creationDate}\3"/>
+                    <regexp pattern="${manifesto.pattern.author}"       replace="\1${manifesto.replace.author}\3"/>
+                    <regexp pattern="${manifesto.pattern.authorEmail}"  replace="\1${manifesto.replace.authorEmail}\3"/>
+                    <regexp pattern="${manifesto.pattern.authorUrl}"    replace="\1${manifesto.replace.authorUrl}\3"/>
+                    <regexp pattern="${manifesto.pattern.copyright}"    replace="\1${manifesto.replace.copyright}\3"/>
+                    <regexp pattern="${manifesto.pattern.license}"      replace="\1${manifesto.replace.license}\3"/>
+                    <regexp pattern="${manifesto.pattern.description}"  replace="\1${manifesto.replace.description}\3"/>
+                    <regexp pattern="${manifesto.pattern.filename.helloworld}"  replace="\1${component.name.lower}\3"/>
+                    <regexp pattern="${manifesto.pattern.option.helloworld}"    replace="\1${component.name.lower}"/>
+                    <regexp pattern="${manifesto.pattern.message.menu}"    replace="\1${manifesto.replace.message.menu}\3"/>
+                </replaceregexp>
+            </filterchain>
         </copy>
 
-        <!-- Rename 01_Introduction to component.name   -->
+        <!-- OTHER Replacements -->
+        <copy todir="${folder.skeletons}">
+            <fileset refid="templates.template"/>
+            <filterchain>
+                <replaceregexp>
+                    <regexp pattern="${template.patter.message.site}"  replace="${template.replace.message.site}"/>
+                    <regexp pattern="${template.patter.message.admin}" replace="${template.replace.message.admin}"/>
+                </replaceregexp>
+            </filterchain>
+        </copy>
+
+        <!-- Rename template to component.name   -->
         <echo msg="Rename 01_Introduction to ${component.name}..."/>
-        <move   file="${folder.skeletons}/01_Introduction"
+        <move   file="${folder.skeletons}/${template}"
                 tofile="${folder.skeletons}/${component.name}"
                 includeemptydirs="true" />
+
+        <!-- Rename MANIFESTO to component.name   -->
+        <echo msg="Rename MANIFESTO to ${component.name}..."/>
+        <move   file="${folder.skeletons}/${component.name}/${template.file.manifesto}"
+                tofile="${folder.skeletons}/${component.name}/${component.name.lower}.xml"
+                />
+
+        <!-- Admin entry poing to component.name   -->
+        <echo msg="Admin entry poing to  ${component.name}.php ..."/>
+        <move   file="${folder.skeletons}/${component.name}/admin/${template.file.entrypoint}"
+                tofile="${folder.skeletons}/${component.name}/admin/${component.name.lower}.php"
+                />
+
+        <!-- Site entry poing to component.name   -->
+        <echo msg="Site entry poing to  ${component.name}.php ..."/>
+        <move   file="${folder.skeletons}/${component.name}/site/${template.file.entrypoint}"
+                tofile="${folder.skeletons}/${component.name}/site/${component.name.lower}.php"
+                />
+
     </target>
 
     <!-- ============================================  -->
-    <!-- Clean skeletons folder            -->
+    <!-- Delete skeletons folder            -->
     <!-- ============================================  -->
-    <target name="clean.skeletons">
-        <!-- @TODO            -->
+    <target name="delete.skeletons">
+        <!-- Delete skeletons -->
+        <delete dir="${folder.skeletons}" includeemptydirs="true" verbose="true">
+        </delete>
+
+        <!-- Create skeleton -->
+        <mkdir dir="${folder.skeletons}" />
+    </target>
+
+    <!-- ============================================  -->
+    <!-- ZIP COMPONENT                                 -->
+    <!-- ============================================  -->
+    <target name="build.zip">
+        <zip destfile="${folder.skeletons}/${component.name}.zip" basedir="${folder.skeletons}/${component.name}"/>
+    </target>
+
+
+    <!-- ============================================  -->
+    <!-- LAB ZONE                                      -->
+    <!-- ============================================  -->
+    <target name="lab.zone">
+        <exec command="echo ${component.name} | awk '{print tolower($0)}'" outputProperty="component.name.lower" />
+        <echo msg="${component.name.lower}"/>
     </target>
 
 </project>
