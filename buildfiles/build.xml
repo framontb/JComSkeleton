@@ -1,6 +1,6 @@
 <?xml version="1.0"  encoding="UTF-8" ?>
 
-<project name="testsite" basedir="." default="create.from.template" 
+<project name="testsite" basedir="." default="build" 
     description="Creates a Joomla Component skeleton based on a given template">
 
     <!-- ==============================================  -->
@@ -104,10 +104,34 @@
     <!-- ============================================  -->
     <!-- ZIP COMPONENT                                 -->
     <!-- ============================================  -->
-    <target name="build.zip">
+    <target name="zip">
         <zip destfile="${folder.skeletons}/${component.name}.zip" basedir="${folder.skeletons}/${component.name}"/>
     </target>
 
+
+    <!-- ============================================  -->
+    <!-- BUILD                                         -->
+    <!-- ============================================  -->
+    <target name="build">
+        <echo msg="Building ${component.name} in ${production.folder}..."/>
+
+        <!-- PERMISSIONS -->
+        <exec command="sudo chmod g+w ~/Documentos/dev/joomla/labs_democracia_online/joomla-lab1/ -R"/>
+
+        <!-- COPY TO ADMIN -->
+        <copy todir="${production.folder.admin}/com_${component.name.lower}" overwrite="true" verbose="true">
+            <fileset dir="${development.folder.admin}">
+                <include name="**"/>
+            </fileset>
+        </copy>
+
+        <!-- COPY TO SITE -->
+        <copy todir="${production.folder.site}/com_${component.name.lower}" overwrite="true" verbose="true">
+            <fileset dir="${development.folder.site}">
+                <include name="**"/>
+            </fileset>
+        </copy>
+    </target>
 
     <!-- ============================================  -->
     <!-- LAB ZONE                                      -->
