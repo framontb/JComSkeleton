@@ -113,30 +113,30 @@
     <!-- BUILD                                         -->
     <!-- ============================================  -->
     <target name="build">
-        <echo msg="Building ${component.name} in ${production.folder}..."/>
+        <echo msg="Building ${component.name} in ${testing.folder}..."/>
 
         <!-- PERMISSIONS -->
-        <exec command="sudo chmod g+w ${production.folder}/components/com_${component.name.lower} -R"/>
-        <exec command="sudo chmod g+w ${production.folder}/administrator/components/com_${component.name.lower} -R"/>
+        <exec command="sudo chmod g+w ${testing.folder}/components/com_${component.name.lower} -R"/>
+        <exec command="sudo chmod g+w ${testing.folder}/administrator/components/com_${component.name.lower} -R"/>
 
         <!-- COPY TO ADMIN -->
-        <copy todir="${production.folder.admin}/com_${component.name.lower}" overwrite="true" verbose="true">
+        <copy todir="${testing.folder.admin}/com_${component.name.lower}" overwrite="true" verbose="true">
             <fileset dir="${development.folder.admin}">
                 <include name="**"/>
             </fileset>
         </copy>
 
         <!-- COPY TO SITE -->
-        <copy todir="${production.folder.site}/com_${component.name.lower}" overwrite="true" verbose="true">
+        <copy todir="${testing.folder.site}/com_${component.name.lower}" overwrite="true" verbose="true">
             <fileset dir="${development.folder.site}">
                 <include name="**"/>
             </fileset>
         </copy>
 
         <!-- OWNER -->
-        <echo msg="SET OWNER ${production.folder}/components/com_${component.name.lower} "/>
-        <exec command="sudo chown www-data:www-data ${production.folder}/components/com_${component.name.lower} -R"/>
-        <exec command="sudo chown www-data:www-data ${production.folder}/administrator/components/com_${component.name.lower} -R"/>
+        <echo msg="SET OWNER ${testing.folder}/components/com_${component.name.lower} "/>
+        <exec command="sudo chown www-data:www-data ${testing.folder}/components/com_${component.name.lower} -R"/>
+        <exec command="sudo chown www-data:www-data ${testing.folder}/administrator/components/com_${component.name.lower} -R"/>
     </target>
 
     <!-- ============================================  -->
