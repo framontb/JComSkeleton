@@ -112,6 +112,9 @@ Para borrar TODOS los proyectos de la carpeta `skeletons`:
 
 Si disponemos de un entorno de testing, podemos clonar JComSkeleton en la carpeta `tmp` de Joomla. De este modo, podremos hacer la instalación inicial del proyecto directamente desde la carpeta (sin necesidad del fichero zip).
 
+Por ejemplo accediendo a la instalación por carpeta:
+* `/var/www/html/tmp/JComSkeleton/skeletons/joomprosubs`
+
 # DOCUMENTACIÓN
 
 Si quieres aprender más acerca de los componentes Joomla, visita el siguiente enlace:
@@ -119,3 +122,6 @@ Si quieres aprender más acerca de los componentes Joomla, visita el siguiente e
 * [Developing a Basic Component](https://docs.joomla.org/J3.x:Developing_an_MVC_Component/Developing_a_Basic_Component)
 
 Ahí encontrarás información detallada sobre el template `helloworld` utilizado aquí, así como otros ejemplos incrementalmente más complejos, que conforman un curso completo.
+
+En este repositorio encontrarás muchos de los ejemplos preparados:
+* [Stevec4/Joomla-HelloWorld](https://github.com/Stevec4/Joomla-HelloWorld)
