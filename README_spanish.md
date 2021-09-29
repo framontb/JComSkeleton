@@ -16,9 +16,7 @@ Por ejemplo:
 * Rellenar toda la información del manifesto (fichero de  instalación). 
 * Crear los ficheros para controladores, modelos, vistas, layouts con sus doc-blocs, etc... 
 
-Todo ello siguiendo las pautas de nomenclatura que Joomla exige, con prefijos y sufijos para los nombres de las clases. Pero, ¿y si simplemente apretando un botón nos entregaran un componente con la nomenclatura
-deseada, documentado y listo para instalar? Esto nos facilitaría el ponernos manos a la obra enseguida con
-el desarrollo de nuestro proyecto saltándonos el trabajo tedioso.
+Todo ello siguiendo las pautas de nomenclatura que Joomla exige, con prefijos y sufijos para los nombres de las clases. Pero, ¿y si simplemente apretando un botón nos entregaran un componente con la nomenclatura deseada, documentado y listo para instalar? Esto nos facilitaría el ponernos manos a la obra enseguida con el desarrollo de nuestro proyecto saltándonos el trabajo tedioso.
 
 Pero incluso una vez que hemos empezado el verdadero desarrollo de nuestro componente, hemos de lidiar con
 tareas repetitivas. Cada vez que modificamos el comportamiento de nuestras clases, bd, etc... hemos de probarlas para asegurarnos de que funcionan. Esto implica probar el componente en un entorno de testing, 
