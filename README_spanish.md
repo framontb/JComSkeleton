@@ -16,9 +16,7 @@ Por ejemplo:
 * Rellenar toda la información del manifesto (fichero de  instalación). 
 * Crear los ficheros para controladores, modelos, vistas, layouts con sus doc-blocs, etc... 
 
-Todo ello siguiendo las pautas de nomenclatura que Joomla exige, con prefijos y sufijos para los nombres de las clases. Pero, ¿y si simplemente apretando un botón nos entregaran un componente con la nomenclatura
-deseada, documentado y listo para instalar? Esto nos facilitaría el ponernos manos a la obra enseguida con
-el desarrollo de nuestro proyecto saltándonos el trabajo tedioso.
+Todo ello siguiendo las pautas de nomenclatura que Joomla exige, con prefijos y sufijos para los nombres de las clases. Pero, ¿y si simplemente apretando un botón nos entregaran un componente con la nomenclatura deseada, documentado y listo para instalar? Esto nos facilitaría el ponernos manos a la obra enseguida con el desarrollo de nuestro proyecto saltándonos el trabajo tedioso.
 
 Pero incluso una vez que hemos empezado el verdadero desarrollo de nuestro componente, hemos de lidiar con
 tareas repetitivas. Cada vez que modificamos el comportamiento de nuestras clases, bd, etc... hemos de probarlas para asegurarnos de que funcionan. Esto implica probar el componente en un entorno de testing, 
@@ -112,6 +110,9 @@ Para borrar TODOS los proyectos de la carpeta `skeletons`:
 
 Si disponemos de un entorno de testing, podemos clonar JComSkeleton en la carpeta `tmp` de Joomla. De este modo, podremos hacer la instalación inicial del proyecto directamente desde la carpeta (sin necesidad del fichero zip).
 
+Por ejemplo accediendo a la instalación por carpeta:
+* `/var/www/html/tmp/JComSkeleton/skeletons/joomprosubs`
+
 # DOCUMENTACIÓN
 
 Si quieres aprender más acerca de los componentes Joomla, visita el siguiente enlace:
@@ -119,3 +120,6 @@ Si quieres aprender más acerca de los componentes Joomla, visita el siguiente e
 * [Developing a Basic Component](https://docs.joomla.org/J3.x:Developing_an_MVC_Component/Developing_a_Basic_Component)
 
 Ahí encontrarás información detallada sobre el template `helloworld` utilizado aquí, así como otros ejemplos incrementalmente más complejos, que conforman un curso completo.
+
+En este repositorio encontrarás muchos de los ejemplos preparados:
+* [Stevec4/Joomla-HelloWorld](https://github.com/Stevec4/Joomla-HelloWorld)
