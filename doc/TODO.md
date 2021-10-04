@@ -1,5 +1,11 @@
 
 
+# HelloWorld
+
+1. Build para crear skeleton a partir de templates/01 Introduccion
+
+# JoomProSubs => deprecated
+
 1. ~Joomprosubs > option~
     * No se ven las acciones
     * Probablemente esté mal el archivo access.xml

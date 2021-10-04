@@ -82,11 +82,18 @@ Hay varias secciones:
 
 ## USO
 
-### Creación de un componente
+### Creación de un componente 
+
+En la página web de joomla([Desarrollo de un Componente MVC](https://docs.joomla.org/J3.x:Developing_an_MVC_Component/es)), encontrarás una serie de artículos sobre cómo desarrollar un componente Joomla versión 3.*. Cada artículo de la serie introduce una nueva funcionalidad al componente **HelloWorld**. El siguiente comando, crea una copia instalable, con el nombre que elijas, de la versión de HelloWorld que prefieras:
+`php ./vendor/bin/phing -f ./buildfiles/build.from.helloworld.xml create -Dtemplate=01_Introduction -Dcomponent.name=jumer`
+
+#### Otras opciones
 
 El siguiente comando creará un componente llamado `JumerCom1` en la carpeta `skeletons`:
 
 `php ./vendor/bin/phing -f ./buildfiles/build.xml create.from.template -Dtemplate=helloworld -Dcomponent.name=JumerCom1`
+
+
 
 ### Creación del fichero de instalación zip
 
