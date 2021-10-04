@@ -1,0 +1,93 @@
+<?xml version="1.0"  encoding="UTF-8" ?>
+
+<project name="testsite" basedir="." default="build" 
+    description="Creates a Joomla Component skeleton based on a given template">
+
+    <!-- ==============================================  -->
+    <!-- Define some common properties and filesets      -->
+    <!-- ==============================================  -->
+
+    <!-- Properties file and timestamp -->
+    <property file="./buildfiles/user.properties" />
+    <property file="./buildfiles/build.properties" />
+    <tstamp><format pattern="%Y" property="YEAR"></format></tstamp>
+
+    <!-- Fileset: template -->
+    <fileset id="templates.template" dir="${folder.templates}">
+        <include name="${template}/**"/>
+        <exclude name="${template}/*.zip"/>
+        <exclude name="${template}/helloworld.xml"/>
+    </fileset>
+
+    <!-- component.name as lower case-->
+    <exec command="echo ${component.name} | awk '{print tolower($0)}'" outputProperty="component.name.lower" />
+
+    <!-- Create skeleton folder if not exist-->
+    <mkdir dir="${folder.skeletons}" />
+
+    <!-- ============================================  -->
+    <!-- CREATE Skeleton for template           -->
+    <!-- ============================================  -->
+    <target name="create">
+
+        <echo msg="Creating Skeleton..."/>
+
+        <!-- MANIFESTO Replacements -->
+        <copy todir="${folder.skeletons}/${template}">
+            <filelist dir="${folder.templates}/${template}/" files="helloworld.xml"/>
+            <filterchain>
+                <replaceregexp>
+                    <regexp pattern="${manifesto.pattern.name}"         replace="\1${manifesto.replace.name}\3"/>
+                    <regexp pattern="${manifesto.pattern.creationDate}" replace="\1${manifesto.replace.creationDate}\3"/>
+                    <regexp pattern="${manifesto.pattern.author}"       replace="\1${manifesto.replace.author}\3"/>
+                    <regexp pattern="${manifesto.pattern.authorEmail}"  replace="\1${manifesto.replace.authorEmail}\3"/>
+                    <regexp pattern="${manifesto.pattern.authorUrl}"    replace="\1${manifesto.replace.authorUrl}\3"/>
+                    <regexp pattern="${manifesto.pattern.copyright}"    replace="\1${manifesto.replace.copyright}\3"/>
+                    <regexp pattern="${manifesto.pattern.license}"      replace="\1${manifesto.replace.license}\3"/>
+                    <regexp pattern="${manifesto.pattern.description}"  replace="\1${manifesto.replace.description}\3"/>
+                    <regexp pattern="${manifesto.pattern.filename}"     replace="\1${component.name.lower}\3"/>
+                    <regexp pattern="${manifesto.pattern.option}"       replace="\1${component.name.lower}\3"/>
+                    <regexp pattern="${manifesto.pattern.message.menu}" replace="\1${manifesto.replace.message.menu}\3"/>
+                </replaceregexp>
+            </filterchain>
+        </copy>
+
+        <!-- OTHER Replacements -->
+        <copy todir="${folder.skeletons}">
+            <fileset refid="templates.template"/>
+            <filterchain>
+                <replaceregexp>
+                    <regexp pattern="${template.pattern.message.site}"  replace="${template.replace.message.site}"/>
+                    <regexp pattern="${template.pattern.message.admin}" replace="${template.replace.message.admin}"/>
+                </replaceregexp>
+            </filterchain>
+        </copy>
+
+        <!-- Rename template to component.name   -->
+        <echo msg="Rename ${template} to ${component.name}..."/>
+        <move   file="${folder.skeletons}/${template}"
+                tofile="${folder.skeletons}/${component.name}"
+                includeemptydirs="true" />
+
+        <!-- Rename MANIFESTO to component.name   -->
+        <echo msg="Rename MANIFESTO to ${component.name}..."/>
+        <move   file="${folder.skeletons}/${component.name}/helloworld.xml"
+                tofile="${folder.skeletons}/${component.name}/${component.name.lower}.xml"
+                />
+
+        <!-- Admin entry poing to component.name   -->
+        <echo msg="Admin entry point to  ${component.name}.php ..."/>
+        <move   file="${folder.skeletons}/${component.name}/admin/helloworld.php"
+                tofile="${folder.skeletons}/${component.name}/admin/${component.name.lower}.php"
+                />
+
+        <!-- Site entry poing to component.name   -->
+        <echo msg="Site entry point to  ${component.name}.php ..."/>
+        <move   file="${folder.skeletons}/${component.name}/site/helloworld.php"
+                tofile="${folder.skeletons}/${component.name}/site/${component.name.lower}.php"
+                />
+
+    </target>
+
+
+</project>
