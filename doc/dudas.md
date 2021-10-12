@@ -26,3 +26,9 @@ Ver en `BannersViewBanners` como está hoy día.
 			JToolbarHelper::addNew('subscription.add','JTOOLBAR_NEW');
 		}
 ```
+
+# Shell Rename world
+
+Problema: es neceario instalar rename
+
+find . -depth -name "*helloworld*" |  rename "s/.php.php$/.php/g"

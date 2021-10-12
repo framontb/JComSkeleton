@@ -56,57 +56,17 @@
         <!-- REPLACE CONTENT: ALL FILES   -->
         <copy todir="${folder.skeletons}">
             <fileset refid="templates.template"/>
-            <filterchain>
-                <replaceregexp>
-                    <regexp pattern="${template.pattern.message.site}"  replace="${template.replace.message.site}"/>
-                    <regexp pattern="${template.pattern.message.admin}" replace="${template.replace.message.admin}"/>
-                </replaceregexp>
-            </filterchain>
         </copy>
 
         <!-- RENAME FILES   -->
-        <!-- MOVE: Rename template to component.name   -->
+        <!-- RENAME template to component.name   -->
         <echo msg="Rename ${template} to ${component.name}..."/>
         <move   file="${folder.skeletons}/${template}"
                 tofile="${folder.skeletons}/${component.name}"
                 includeemptydirs="true" />
 
-        <!-- RMOVE: ename MANIFESTO to component.name   -->
-        <echo msg="Rename MANIFESTO to ${component.name}..."/>
-        <move   file="${folder.skeletons}/${component.name}/helloworld.xml"
-                tofile="${folder.skeletons}/${component.name}/${component.name.lower}.xml"
-                />
-
-        <!-- MOVE: Admin entry point to component.name   -->
-        <echo msg="Admin entry point to  ${component.name}.php ..."/>
-        <move   file="${folder.skeletons}/${component.name}/admin/helloworld.php"
-                tofile="${folder.skeletons}/${component.name}/admin/${component.name.lower}.php"
-                />
-
-        <!-- MOVE: Site entry point to component.name   -->
-        <echo msg="Site entry point to  ${component.name}.php ..."/>
-        <move   file="${folder.skeletons}/${component.name}/site/helloworld.php"
-                tofile="${folder.skeletons}/${component.name}/site/${component.name.lower}.php"
-                />
-
-        <!-- MOVE: Admin Language ini  -->
-        <echo msg="Admin entry point to  ${component.name}.php ..."/>
-        <move   file="${folder.skeletons}/${component.name}/admin/language/en-GB/en-GB.com_helloworld.ini"
-                tofile="${folder.skeletons}/${component.name}/admin/language/en-GB/en-GB.com_${component.name.lower}.ini"
-                />
-
-        <!-- MOVE: Admin Language sys.ini  -->
-        <echo msg="Admin entry point to  ${component.name}.php ..."/>
-        <move   file="${folder.skeletons}/${component.name}/admin/language/en-GB/en-GB.com_helloworld.sys.ini"
-                tofile="${folder.skeletons}/${component.name}/admin/language/en-GB/en-GB.com_${component.name.lower}.sys.ini"
-                />
-
-        <!-- MOVE: Site Language ini  -->
-        <echo msg="Site entry point to  ${component.name}.php ..."/>
-        <move   file="${folder.skeletons}/${component.name}/site/language/en-GB/en-GB.com_helloworld.ini"
-                tofile="${folder.skeletons}/${component.name}/site/language/en-GB/en-GB.com_${component.name.lower}.ini">
-        </move>
-
+        <!-- RENAME HELLOWORLD FILES  -->
+        <exec command='find ${folder.skeletons}/${component.name} -depth -name "*helloworld*" |  rename "s/helloworld/${component.name.lower}/g"'/>
 
         <!-- TRANSFORMANDO CONTENIDO  -->
         <reflexive>
